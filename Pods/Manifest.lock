@@ -1,0 +1,16 @@
+PODS:
+  - SwiftLinkPreview (3.2.0)
+
+DEPENDENCIES:
+  - SwiftLinkPreview (~> 3.2.0)
+
+SPEC REPOS:
+  trunk:
+    - SwiftLinkPreview
+
+SPEC CHECKSUMS:
+  SwiftLinkPreview: ad1283d2e67f0ffe41e0bd2428f8d9496afca172
+
+PODFILE CHECKSUM: 431b5a42ea4856d43ae393f5f58b7c5a1b1af249
+
+COCOAPODS: 1.10.0
