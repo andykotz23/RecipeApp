@@ -13,9 +13,6 @@
 		1122C5D7258545F8003AAA78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1122C5D5258545F8003AAA78 /* Main.storyboard */; };
 		1122C5D9258545FA003AAA78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1122C5D8258545FA003AAA78 /* Assets.xcassets */; };
 		1122C5DC258545FA003AAA78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1122C5DA258545FA003AAA78 /* LaunchScreen.storyboard */; };
-		11747566258597360054945C /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11747565258597360054945C /* MessageCell.xib */; };
-		1174756C258597B10054945C /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174756B258597B10054945C /* MessageCell.swift */; };
-		1174756F258598530054945C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174756E258598530054945C /* Message.swift */; };
 		11A024222585D673003B4F6F /* RecipeIngredients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A024212585D673003B4F6F /* RecipeIngredients.swift */; };
 		720281483D1F8DE845BB48DB /* Pods_RecipeFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA27C55B04DFB19260CA8B2C /* Pods_RecipeFinder.framework */; };
 /* End PBXBuildFile section */
@@ -29,9 +26,6 @@
 		1122C5D8258545FA003AAA78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1122C5DB258545FA003AAA78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1122C5DD258545FA003AAA78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		11747565258597360054945C /* MessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
-		1174756B258597B10054945C /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
-		1174756E258598530054945C /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		11A024212585D673003B4F6F /* RecipeIngredients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeIngredients.swift; sourceTree = "<group>"; };
 		682643BA6B64E172F496349D /* Pods-RecipeFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeFinder.debug.xcconfig"; path = "Target Support Files/Pods-RecipeFinder/Pods-RecipeFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		CA27C55B04DFB19260CA8B2C /* Pods_RecipeFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipeFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,9 +70,6 @@
 				1122C5D1258545F8003AAA78 /* SceneDelegate.swift */,
 				1122C5D3258545F8003AAA78 /* ViewController.swift */,
 				1122C5D5258545F8003AAA78 /* Main.storyboard */,
-				1174756E258598530054945C /* Message.swift */,
-				1174756B258597B10054945C /* MessageCell.swift */,
-				11747565258597360054945C /* MessageCell.xib */,
 				1122C5D8258545FA003AAA78 /* Assets.xcassets */,
 				1122C5DA258545FA003AAA78 /* LaunchScreen.storyboard */,
 				1122C5DD258545FA003AAA78 /* Info.plist */,
@@ -163,7 +154,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1122C5DC258545FA003AAA78 /* LaunchScreen.storyboard in Resources */,
-				11747566258597360054945C /* MessageCell.xib in Resources */,
 				1122C5D9258545FA003AAA78 /* Assets.xcassets in Resources */,
 				1122C5D7258545F8003AAA78 /* Main.storyboard in Resources */,
 			);
@@ -219,8 +209,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1122C5D4258545F8003AAA78 /* ViewController.swift in Sources */,
-				1174756C258597B10054945C /* MessageCell.swift in Sources */,
-				1174756F258598530054945C /* Message.swift in Sources */,
 				1122C5D0258545F8003AAA78 /* AppDelegate.swift in Sources */,
 				11A024222585D673003B4F6F /* RecipeIngredients.swift in Sources */,
 				1122C5D2258545F8003AAA78 /* SceneDelegate.swift in Sources */,

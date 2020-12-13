@@ -43,5 +43,27 @@ struct RecipeIngredients {
     let sufganIng: Set = ["milk","dry yeast","yeast","sugar","eggs","butter","kosher salt","lemon zest","flour","oil","sugar","jam"]
     let appleFritIng: Set = ["flour","cornmeal","brown sugar","sugar","baking powder","cinnamon","nutmeg","kosher salt","milk","eggs","vanilla extract","apple","oil","whipped cream"]
     
+    func makeDict() -> [String:(Set<String>,String,[Int])] {
+        let dict = [
+            rugelachURL: (recipe1Ing, "Rugelach", [-1]),
+            challahURL: (challahIng, "Challah", [-1]),
+            matzohSoupURL: (matzohIng, "Matzoh Ball Soup", [-1]),
+            kugelURL: (kugelING, "Noodle Kugel", [-1]),
+            shakshukaURL: (shakshukaIng, "Shakshuka", [-1]),
+            latkeURL: (latkeIng, "Potato Latke", [-1]),
+            brisketURL: (brisketIng, "Beef Brisket", [-1]),
+            flourlessCakeURL: (flourlessCakeIng, "Flourless Chocolate Cake", [-1]),
+            hamentashenURL: (hamentashenIng, "Hamentashen", [-1]),
+            israelSaladURL: (israelSalad, "Isaraeli Salad", [-1]),
+            reubenURL: (reubenIng, "Reuben", [-1]),
+            matzohBreiURL: (matzohBreiIng, "Matzoh Brei", [-1]),
+            //kugelURL: (kugelING, "Noodle Kugel", [0]),
+            falafelURL: (falafelIng, "Falafel", [-1]),
+            sufganURL: (sufganIng, "Sufganiyot (Jelly Donut)", [-1]),
+            appleFritURl: (appleFritIng, "Apple Fritters", [-1])
+        ]
+        
+        return dict
+    }
     
 }

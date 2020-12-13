@@ -6,16 +6,16 @@
 //
 
 import UIKit
-//import SwiftLinkPreview
+
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+    /*
+     set up variables and dictionary of recipes
+     */
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var findRecipeButtonOutlet: UIButton!
     
     var lst = [String]()
-    
-    
     var recipeDict: [String: (Set<String>, String, [Int])] = [:]
     var userSet = Set<String>()
     var bestURL: String = ""
@@ -25,24 +25,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func makeDict() {
         let K = RecipeIngredients()
-        recipeDict = [
-            K.rugelachURL: (K.recipe1Ing, "Rugelach", [-1]),
-            K.challahURL: (K.challahIng, "Challah", [-1]),
-            K.matzohSoupURL: (K.matzohIng, "Matzoh Ball Soup", [-1]),
-            K.kugelURL: (K.kugelING, "Noodle Kugel", [-1]),
-            K.shakshukaURL: (K.shakshukaIng, "Shakshuka", [-1]),
-            K.latkeURL: (K.latkeIng, "Potato Latke", [-1]),
-            K.brisketURL: (K.brisketIng, "Beef Brisket", [-1]),
-            K.flourlessCakeURL: (K.flourlessCakeIng, "Flourless Chocolate Cake", [-1]),
-            K.hamentashenURL: (K.hamentashenIng, "Hamentashen", [-1]),
-            K.israelSaladURL: (K.israelSalad, "Isaraeli Salad", [-1]),
-            K.reubenURL: (K.reubenIng, "Reuben", [-1]),
-            K.matzohBreiURL: (K.matzohBreiIng, "Matzoh Brei", [-1]),
-            //K.kugelURL: (K.kugelING, "Noodle Kugel", [0]),
-            K.falafelURL: (K.falafelIng, "Falafel", [-1]),
-            K.sufganURL: (K.sufganIng, "Sufganiyot (Jelly Donut)", [-1]),
-            K.appleFritURl: (K.appleFritIng, "Apple Fritters", [-1])
-        ]
+        recipeDict = K.makeDict()
     }
 
     
@@ -54,26 +37,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         findRecipeButtonOutlet.layer.borderWidth = 1.5
         findRecipeButtonOutlet.layer.borderColor = UIColor.white.cgColor
         findRecipeButtonOutlet.layer.cornerRadius = findRecipeButtonOutlet.bounds.width / 15
-        //view = tableView //maybe not
-        //tableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "BasicCell")
-        // Do any additional setup after loading the view.
+
     }
     
-    
+    /*
+     Actions to occur when user has input values and is ready to see list of recipes
+     */
     
     @IBAction func goButtonPressed(_ sender: UIButton) {
         let userString = userInputList.text
         let userArr = userString?.components(separatedBy: ", ")
-        //var userSet = Set<String>()
         for ingrediant in userArr! {
             userSet.insert(ingrediant)
         }
-        //print(userSet.intersection(recipe1Ing).count)
         makeDict()
+        
         findBestURL()
-//        print(bestURL)
-//        print("We have chosen a \(recipeDict[bestURL]?.1 ?? "Nothing") for you, would you like to go to the recipe? Click next if yes, re-type in ingrediants to find another")
-        //tableView.reloadData()
+        // set up table view and reload data in case table view is loaded before data was added
         DispatchQueue.main.async {
             self.tableView.reloadData()
             let indexPath = IndexPath(row: self.recipeDict.count - 1,section: 0 )
@@ -81,19 +61,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-
     
-
+    /*
+         find the url with the most matches, and any websites that have the same
+         amount of matches and add them to the list of options
+         */
     func findBestURL(){
-        //var best = ""
         var max = 0
-        //var ingrediantsCount = 0
-        for (url, ing) in recipeDict {
+        for (_, ing) in recipeDict {
             let count = userSet.intersection(ing.0).count
             if count > max {
                 max = count
-                //best = url
-                
             }
         }
         lst = [String]()
@@ -102,18 +80,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         for (url, ing) in recipeDict {
             let count = userSet.intersection(ing.0).count
             if count == max {
-                //- 2 && count <= max { //change to change how many show up
-            //if count == max{
                 lst.append(url)
                 total -= 1
                 recipeDict[url]?.2 = [i]
-//                recipeDict[url] = (set!,tuple?.1!,i)
                 i += 1
             }
         }
-        //return lst.randomElement()!
     }
-    
+
+    //Mark: tableview delegate methods
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 15 //change to however many recipes it makes sense to show the user
     }
@@ -128,9 +104,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.textLabel?.textColor = .black
             cell.textLabel?.font = UIFont(name: "Optima Regular", size: 25)
             cell.textLabel?.shadowColor = #colorLiteral(red: 0.8294614553, green: 0.4935253263, blue: 0.5416667461, alpha: 1)
-            
-            
-        //cell.label.text = recipeDict[message]?.1
+
         
         return cell
         }
@@ -148,28 +122,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
     }
-}
-extension CGFloat {
-    static func random() -> CGFloat {
-        return CGFloat(arc4random()) / CGFloat(UInt32.max)
-    }
-}
-
-extension UIColor {
-    static func random() -> UIColor {
-        var i = 0
-        if i == 0 {
-            return UIColor.red
-            i += 1
-        } else {
-            return UIColor.blue
-//        red: .random(),
-//        green: .random(),
-//        blue: .random(),
-//        alpha: 1.0
-//        )
-    }
-}
 }
 
 
