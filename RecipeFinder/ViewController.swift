@@ -8,14 +8,16 @@
 import UIKit
 //import SwiftLinkPreview
 
-class ViewController: UIViewController {
-    var recipeDict: [String: (Set<String>, String)] = [:]
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var lst = [String]()
+    
+    
+    var recipeDict: [String: (Set<String>, String, [Int])] = [:]
     var userSet = Set<String>()
     var bestURL: String = ""
-    //private var result = Response()
-    //private let placeholderImages = [CGImageSource(image: UIImage(named: "Placeholder")!)]
-    //let slp = SwiftLinkPreview(session: URLSession = URLSession.shared, workQueue: DispatchQueue = SwiftLinkPreview.defaultWorkQueue, responseQueue: DispatchQueue = DispatchQueue.main, cache: Cache = DisabledCache.instance)
-    //let slp = SwiftLinkPreview(session: URLSession = URLSession.shared, workQueue: DispatchQueue = SwiftLinkPreview.defaultWorkQueue, responseQueue: DispatchQueue = DispatchQueue.main, cache: Cache = DisabledCache.instance)
     
     @IBOutlet weak var userInputList: UITextField!
     let recipe1Ing: Set = ["flour", "salt", "butter", "cream cheese", "sour cream", "brown sugar", "walnuts","raisins","cinnamon", "sugar"]
@@ -23,14 +25,18 @@ class ViewController: UIViewController {
     
     func makeDict() {
         recipeDict = [
-            "https://sallysbakingaddiction.com/how-to-make-rugelach-cookies/": (recipe1Ing, "rugelach"),
-            "https://www.thekitchn.com/how-to-make-challah-bread-181004": (challahIng, "Challah")
+            "https://sallysbakingaddiction.com/how-to-make-rugelach-cookies/": (recipe1Ing, "Rugelach", [1]),
+            "https://www.thekitchn.com/how-to-make-challah-bread-181004": (challahIng, "Challah", [1])
         ]
     }
     //let url = "https://sallysbakingaddiction.com/how-to-make-rugelach-cookies/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
+        //view = tableView //maybe not
+        //tableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "BasicCell")
         // Do any additional setup after loading the view.
     }
     
@@ -47,7 +53,13 @@ class ViewController: UIViewController {
         makeDict()
         bestURL = findBestURL()
         print(bestURL)
-        print("We have chosen a \(recipeDict[bestURL]?.1) for you, would you like to go to the recipe? Click next if yes, re-type in ingrediants to find another")
+        print("We have chosen a \(recipeDict[bestURL]?.1 ?? "Nothing") for you, would you like to go to the recipe? Click next if yes, re-type in ingrediants to find another")
+        //tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            let indexPath = IndexPath(row: self.recipeDict.count - 1,section: 0 )
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
         
     }
     
@@ -57,24 +69,7 @@ class ViewController: UIViewController {
         }
     }
     
-        //var articles = Response.sampleArticles()
-        //var body: UIView {
-//            Array(articles) { article in
-//                ArticleRow(article: article)
-//            }
-//        }
-//        let articleFetcher = ArticleFetcher(article: Response(link: bestURL))
-//        //slp.preview(bestURL, onSuccess: { result in print("\(result)")},
-//                    //onError: { error in print("\(error)")})
-//        //var userSet: Set<String> = userArr as Set<String>
-//    }
-//    struct ArticleRow {
-//        var articleFetcher: ArticleFetcher
-//        init(article: Response) {
-//            articleFetcher = ArticleFetcher(article: article)
-//        }
-//
-//    }
+
     func findBestURL() -> String {
         //var best = ""
         var max = 0
@@ -87,54 +82,49 @@ class ViewController: UIViewController {
                 
             }
         }
-        var lst = [String]()
+        lst = [String]()
+        var i = 0
         for (url, ing) in recipeDict {
             let count = userSet.intersection(ing.0).count
-            if count > max - 2 && count < max + 5 {
+            if count > max - 2 && count < max + 2 {
                 lst.append(url)
+                
+                recipeDict[url]?.2 = [i]
+//                recipeDict[url] = (set!,tuple?.1!,i)
+                i += 1
             }
         }
         return lst.randomElement()!
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4 //change to however many recipes it makes sense to show the user
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row < lst.count {
+            let message = lst[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BasicCell", for: indexPath) //check string origin
+            cell.textLabel?.text = recipeDict[message]?.1
+        //cell.label.text = recipeDict[message]?.1
+        
+        return cell
+        }
+        return UITableViewCell()
+        
+    }
     
-//
-//
-//}
-//
-//struct Response {
-//    let id: String?
-//    var title: String = "Article Title"
-//    var subtitle: String?
-//    var link: String? = "Link to Article"
-//    var imageLink: String?
-//    var imageData: Data?
-//
-//    static func sampleArticles() -> [Response] {
-//        var articles = [Response]()
-//        var keys = [String]()
-//        for thing in recipeDict.keys{
-//            keys.append(thing)
-//        }
-//        for url in keys {
-//            articles.append(Response(id: url))
-//        }
-//        return articles
-//    }
-////    let url: URL // URL
-////    let finalUrl: URL // unshortened URL
-////    let canonicalUrl: String // canonical URL
-////    let title: String // title
-////    let description: String // page description or relevant text
-////    let images: [String] // array of URLs of the images
-////    let image: String // main image
-////    let icon: String // favicon
-////    let video: String // video
-////    let price: String // price
-////}
-//
-//
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        for (i,j) in recipeDict {
+            if j.2 == [indexPath.row] {
+                print(indexPath.row,i)
+                if let url = URL(string: i) {
+                    UIApplication.shared.open(url)
+                }
+            }
+        }
+    }
 }
 
 
