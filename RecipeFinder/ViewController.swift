@@ -21,16 +21,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var bestURL: String = ""
     
     @IBOutlet weak var userInputList: UITextField!
-    let recipe1Ing: Set = ["flour", "salt", "butter", "cream cheese", "sour cream", "brown sugar", "walnuts","raisins","cinnamon", "sugar"]
-    let challahIng: Set = ["yeast", "flour", "sugar", "salt", "eggs", "oil"]
+    
     
     func makeDict() {
+        let K = RecipeIngredients()
         recipeDict = [
-            "https://sallysbakingaddiction.com/how-to-make-rugelach-cookies/": (recipe1Ing, "Rugelach", [1]),
-            "https://www.thekitchn.com/how-to-make-challah-bread-181004": (challahIng, "Challah", [1])
+            K.rugelachURL: (K.recipe1Ing, "Rugelach", [1]),
+            K.challahURL: (K.challahIng, "Challah", [1]),
+            K.matzohSoupURL: (K.matzohIng, "Matzoh Ball Soup", [0]),
+            K.kugelURL: (K.kugelING, "Noodle Kugel", [0]),
+            K.shakshukaURL: (K.shakshukaIng, "Shakshuka", [0]),
+            K.latkeURL: (K.latkeIng, "Potato Latke", [0]),
+            K.brisketURL: (K.brisketIng, "Beef Brisket", [0]),
+            K.flourlessCakeURL: (K.flourlessCakeIng, "Flourless Chocolate Cake", [0]),
+            K.hamentashenURL: (K.hamentashenIng, "Hamentashen", [0]),
+            K.israelSaladURL: (K.israelSalad, "Isaraeli Salad", [0]),
+            K.reubenURL: (K.reubenIng, "Reuben", [0]),
+            K.matzohBreiURL: (K.matzohBreiIng, "Matzoh Brei", [0]),
+            //K.kugelURL: (K.kugelING, "Noodle Kugel", [0]),
+            K.falafelURL: (K.falafelIng, "Falafel", [0]),
+            K.sufganURL: (K.sufganIng, "Sufganiyot (Jelly Donut)", [0]),
+            K.appleFritURl: (K.appleFritIng, "Apple Fritters", [0])
         ]
     }
-    //let url = "https://sallysbakingaddiction.com/how-to-make-rugelach-cookies/"
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,11 +68,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         for ingrediant in userArr! {
             userSet.insert(ingrediant)
         }
-        print(userSet.intersection(recipe1Ing).count)
+        //print(userSet.intersection(recipe1Ing).count)
         makeDict()
-        bestURL = findBestURL()
-        print(bestURL)
-        print("We have chosen a \(recipeDict[bestURL]?.1 ?? "Nothing") for you, would you like to go to the recipe? Click next if yes, re-type in ingrediants to find another")
+        findBestURL()
+//        print(bestURL)
+//        print("We have chosen a \(recipeDict[bestURL]?.1 ?? "Nothing") for you, would you like to go to the recipe? Click next if yes, re-type in ingrediants to find another")
         //tableView.reloadData()
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -70,7 +84,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     
 
-    func findBestURL() -> String {
+    func findBestURL(){
         //var best = ""
         var max = 0
         //var ingrediantsCount = 0
@@ -84,22 +98,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         lst = [String]()
         var i = 0
+        var total = 5
         for (url, ing) in recipeDict {
             let count = userSet.intersection(ing.0).count
-            //if count > max - 2 && count < max + 2 { //change to change how many show up
-            if count == max{
+            if count >= max {
+                //- 2 && count <= max { //change to change how many show up
+            //if count == max{
                 lst.append(url)
-                
+                total -= 1
                 recipeDict[url]?.2 = [i]
 //                recipeDict[url] = (set!,tuple?.1!,i)
                 i += 1
             }
         }
-        return lst.randomElement()!
+        //return lst.randomElement()!
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4 //change to however many recipes it makes sense to show the user
+        return 15 //change to however many recipes it makes sense to show the user
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
