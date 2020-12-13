@@ -26,22 +26,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func makeDict() {
         let K = RecipeIngredients()
         recipeDict = [
-            K.rugelachURL: (K.recipe1Ing, "Rugelach", [1]),
-            K.challahURL: (K.challahIng, "Challah", [1]),
-            K.matzohSoupURL: (K.matzohIng, "Matzoh Ball Soup", [0]),
-            K.kugelURL: (K.kugelING, "Noodle Kugel", [0]),
-            K.shakshukaURL: (K.shakshukaIng, "Shakshuka", [0]),
-            K.latkeURL: (K.latkeIng, "Potato Latke", [0]),
-            K.brisketURL: (K.brisketIng, "Beef Brisket", [0]),
-            K.flourlessCakeURL: (K.flourlessCakeIng, "Flourless Chocolate Cake", [0]),
-            K.hamentashenURL: (K.hamentashenIng, "Hamentashen", [0]),
-            K.israelSaladURL: (K.israelSalad, "Isaraeli Salad", [0]),
-            K.reubenURL: (K.reubenIng, "Reuben", [0]),
-            K.matzohBreiURL: (K.matzohBreiIng, "Matzoh Brei", [0]),
+            K.rugelachURL: (K.recipe1Ing, "Rugelach", [-1]),
+            K.challahURL: (K.challahIng, "Challah", [-1]),
+            K.matzohSoupURL: (K.matzohIng, "Matzoh Ball Soup", [-1]),
+            K.kugelURL: (K.kugelING, "Noodle Kugel", [-1]),
+            K.shakshukaURL: (K.shakshukaIng, "Shakshuka", [-1]),
+            K.latkeURL: (K.latkeIng, "Potato Latke", [-1]),
+            K.brisketURL: (K.brisketIng, "Beef Brisket", [-1]),
+            K.flourlessCakeURL: (K.flourlessCakeIng, "Flourless Chocolate Cake", [-1]),
+            K.hamentashenURL: (K.hamentashenIng, "Hamentashen", [-1]),
+            K.israelSaladURL: (K.israelSalad, "Isaraeli Salad", [-1]),
+            K.reubenURL: (K.reubenIng, "Reuben", [-1]),
+            K.matzohBreiURL: (K.matzohBreiIng, "Matzoh Brei", [-1]),
             //K.kugelURL: (K.kugelING, "Noodle Kugel", [0]),
-            K.falafelURL: (K.falafelIng, "Falafel", [0]),
-            K.sufganURL: (K.sufganIng, "Sufganiyot (Jelly Donut)", [0]),
-            K.appleFritURl: (K.appleFritIng, "Apple Fritters", [0])
+            K.falafelURL: (K.falafelIng, "Falafel", [-1]),
+            K.sufganURL: (K.sufganIng, "Sufganiyot (Jelly Donut)", [-1]),
+            K.appleFritURl: (K.appleFritIng, "Apple Fritters", [-1])
         ]
     }
 
@@ -101,7 +101,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var total = 5
         for (url, ing) in recipeDict {
             let count = userSet.intersection(ing.0).count
-            if count >= max {
+            if count == max {
                 //- 2 && count <= max { //change to change how many show up
             //if count == max{
                 lst.append(url)
