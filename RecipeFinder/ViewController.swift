@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var findRecipeButtonOutlet: UIButton!
     
     var lst = [String]()
     
@@ -35,6 +36,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
+        findRecipeButtonOutlet.layer.borderWidth = 1.5
+        findRecipeButtonOutlet.layer.borderColor = UIColor.white.cgColor
+        findRecipeButtonOutlet.layer.cornerRadius = findRecipeButtonOutlet.bounds.width / 15
         //view = tableView //maybe not
         //tableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "BasicCell")
         // Do any additional setup after loading the view.
@@ -62,12 +67,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-    
-    @IBAction func goToWeb(_ sender: UIButton) {
-        if let url = URL(string: bestURL) {
-            UIApplication.shared.open(url)
-        }
-    }
+
     
 
     func findBestURL() -> String {
@@ -86,7 +86,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var i = 0
         for (url, ing) in recipeDict {
             let count = userSet.intersection(ing.0).count
-            if count > max - 2 && count < max + 2 {
+            //if count > max - 2 && count < max + 2 { //change to change how many show up
+            if count == max{
                 lst.append(url)
                 
                 recipeDict[url]?.2 = [i]
@@ -107,6 +108,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "BasicCell", for: indexPath) //check string origin
             cell.textLabel?.text = recipeDict[message]?.1
+            //cell.textLabel?.backgroundColor = #colorLiteral(red: 0.9939097762, green: 0.7076752782, blue: 0.551975131, alpha: 1)
+            cell.textLabel?.textColor = .black
+            cell.textLabel?.font = UIFont(name: "Optima Regular", size: 25)
+            cell.textLabel?.shadowColor = #colorLiteral(red: 0.8294614553, green: 0.4935253263, blue: 0.5416667461, alpha: 1)
+            
+            
         //cell.label.text = recipeDict[message]?.1
         
         return cell
@@ -126,5 +133,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
 }
+extension CGFloat {
+    static func random() -> CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UInt32.max)
+    }
+}
+
+extension UIColor {
+    static func random() -> UIColor {
+        var i = 0
+        if i == 0 {
+            return UIColor.red
+            i += 1
+        } else {
+            return UIColor.blue
+//        red: .random(),
+//        green: .random(),
+//        blue: .random(),
+//        alpha: 1.0
+//        )
+    }
+}
+}
+
 
 
